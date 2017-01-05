@@ -31,10 +31,21 @@ bool AnalogClock::IsValid() const
 
 void AnalogClock::AddHours(int hours)
 {
+	if (GetHours() + hours <= 23)
+		m_hours += hours;
+	else
+		m_hours = 0;
 }
 
 void AnalogClock::AddMinutes(int minutes)
 {
+	if (GetMinutes() + minutes <= 59)
+		m_minutes += minutes;
+	else
+	{
+		AddHours((GetMinutes() + minutes) / 60);
+		m_minutes = (GetMinutes() + minutes) % 60;
+	}
 }
 
 void AnalogClock::AddSeconds(int seconds)
