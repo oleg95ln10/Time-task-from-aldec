@@ -7,8 +7,7 @@ int main()
 	AnalogClock *a = new AnalogClock("20:59:10",':');
 
 	std::cout << *a;
-	//a->AddHours(4);
-	a->AddMinutes(125);
+	a->AddSeconds(725);
 	std::cout << *a;
 
 	std::cout << *a;

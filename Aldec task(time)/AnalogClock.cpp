@@ -1,5 +1,4 @@
 #include "AnalogClock.h"
-#include <cassert>
 
 AnalogClock::AnalogClock(int _hours, int _minutes, int _seconds)
 	:	m_hours(_hours),
@@ -29,38 +28,48 @@ bool AnalogClock::IsValid() const
 	return m_minutes >= 0 && m_minutes <= 59;
 }
 
-void AnalogClock::AddHours(int hours)
+void AnalogClock::AddHours(int _hours)
 {
-	if (GetHours() + hours <= 23)
-		m_hours += hours;
+	if (GetHours() + _hours <= 23)
+		m_hours += _hours;
 	else
 		m_hours = 0;
 }
 
-void AnalogClock::AddMinutes(int minutes)
+void AnalogClock::AddMinutes(int _minutes)
 {
-	if (GetMinutes() + minutes <= 59)
-		m_minutes += minutes;
+	if (GetMinutes() + _minutes <= 59)
+		m_minutes += _minutes;
 	else
 	{
-		AddHours((GetMinutes() + minutes) / 60);
-		m_minutes = (GetMinutes() + minutes) % 60;
+		AddHours((GetMinutes() + _minutes) / 60);
+		m_minutes = (GetMinutes() + _minutes) % 60;
 	}
 }
 
-void AnalogClock::AddSeconds(int seconds)
+void AnalogClock::AddSeconds(int _seconds)
+{
+	if (GetSeconds() + _seconds <= 59)
+	{
+		m_seconds += _seconds;
+	}
+	else
+	{
+		AddMinutes((GetSeconds() + _seconds) / 60);
+		m_seconds = (GetSeconds() + _seconds) % 60;
+	}
+}
+
+void AnalogClock::SubstractHours(int _hours)
+{
+
+}
+
+void AnalogClock::SubstractMinutes(int _minutes)
 {
 }
 
-void AnalogClock::SubstractHours(int hours)
-{
-}
-
-void AnalogClock::SubstractMinutes(int minutes)
-{
-}
-
-void AnalogClock::SubstractSeconds(int seconds)
+void AnalogClock::SubstractSeconds(int _seconds)
 {
 }
 
@@ -79,31 +88,18 @@ int AnalogClock::GetSecondsArrowAngle()
 	return 0;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-bool AnalogClock::operator!=(AnalogClock & a) const
+bool AnalogClock::operator!=(AnalogClock & _a) const
 {
-	return a.GetHours() != GetHours() &&
-		a.GetMinutes() != GetMinutes() &&
-		a.GetSeconds() != GetSeconds();
+	return _a.GetHours() != GetHours() &&
+		_a.GetMinutes() != GetMinutes() &&
+		_a.GetSeconds() != GetSeconds();
 }
 
-bool AnalogClock::operator==(AnalogClock & a)const
+bool AnalogClock::operator==(AnalogClock & _a) const
 {
-	return !(*this != a);
+	return !(*this != _a);
 }
+
 std::ostream & operator <<(std::ostream & _o, AnalogClock & _a)
 {
 	_o <<"Time is: " <<_a.GetHours() << " : " << _a.GetMinutes() << " : " << _a.GetSeconds()<<std::endl;
