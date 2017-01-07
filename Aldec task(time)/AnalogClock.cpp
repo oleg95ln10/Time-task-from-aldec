@@ -8,6 +8,7 @@ AnalogClock::AnalogClock(int _hours, int _minutes, int _seconds)
 	if (!IsValid())
 			throw std::logic_error("Error: time is not valid!");
 }
+
 AnalogClock::AnalogClock(const char * _hhmmss, char _sep)
 {
 	char sep1, sep2;
@@ -62,7 +63,8 @@ void AnalogClock::AddSeconds(int _seconds)
 
 void AnalogClock::SubstractHours(int _hours)
 {
-
+	if (GetHours() - _hours >= 0)
+		m_hours - _hours;
 }
 
 void AnalogClock::SubstractMinutes(int _minutes)
