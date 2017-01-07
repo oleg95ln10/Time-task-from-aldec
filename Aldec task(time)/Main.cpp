@@ -4,15 +4,10 @@
 
 int main()
 {
-	AnalogClock *a = new AnalogClock("20:59:10",':');
+	AnalogClock *a = new AnalogClock("20:59:59",':');
 
 	std::cout << *a;
-	a->AddSeconds(725);
-	std::cout << *a;
-
-	std::cout << *a;
-	std::cout << *a;
-	std::cout << *a;
+	a->SubstractSeconds(120);
 	std::cout << *a;
 	delete a;
 }

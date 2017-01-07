@@ -64,15 +64,26 @@ void AnalogClock::AddSeconds(int _seconds)
 void AnalogClock::SubstractHours(int _hours)
 {
 	if (GetHours() - _hours >= 0)
-		m_hours - _hours;
+		m_hours -= _hours;
 }
 
 void AnalogClock::SubstractMinutes(int _minutes)
 {
+	auto allMinutes = (m_hours * 60) + m_minutes;
+	if (allMinutes - _minutes >= 0)
+		allMinutes -= _minutes;
+	m_hours = allMinutes / 60;
+	m_minutes = allMinutes % 60;
 }
 
 void AnalogClock::SubstractSeconds(int _seconds)
 {
+	auto allSeconds = (m_hours * 60*60 ) + (m_minutes * 60) + m_seconds;
+	if (allSeconds - _seconds >= 0)
+		allSeconds -= _seconds;
+	m_hours = allSeconds / 3600;
+	m_minutes = (allSeconds - m_hours*3600) / 60 ;
+	m_seconds = (allSeconds - (m_hours*3600) - (m_minutes*60));
 }
 
 int AnalogClock::GetHoursArrowAngle()
